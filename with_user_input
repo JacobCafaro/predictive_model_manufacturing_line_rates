@@ -1,0 +1,25 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import seaborn as sns
+import numpy as np
+
+df = pd.read_csv(r"C:\Users\Jacob Cafaro\OneDrive\Documents\Machine Learning\Main packaging line rates.csv")
+
+features = ['Bottle Size', 'Bottle Count']
+target = "LTR"
+
+X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.03, random_state=38)
+
+model = LinearRegression()
+
+model.fit(X_train, y_train)
+
+bottle_size = int(input('What is the bottle size of the product: '))
+bottle_count = int(input('What is the bottle count of the product: '))
+
+product_details = [[bottle_size, bottle_count]]
+
+prediction = model.predict(X=product_details)
+
+print(f'The product should run at {prediction} bottles per minute.')
